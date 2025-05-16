@@ -1,27 +1,25 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Search Results</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <h1>Search results: {{ term }}</h1>
+{% extends "base.html" %}
 
-    {% if results %}
-        <ul>
-            {% for stop in results %}
-                <li>
-                    <a href="{{ url_for('stop_detail', code=stop['NaptanCode']) }}">
-                        {{ stop['CommonName'] }} - {{ stop['Street'] }} ({{ stop['LocalityName'] }})
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No results were found.</p>
-    {% endif %}
+{% block title %}Search Results{% endblock %}
 
-    <p><a href="{{ url_for('index') }}">Back to Home</a></p>
-</body>
-</html>
+{% block content %}
+<h2 class="mb-4 text-primary">🔍 Search Results for: "{{ term }}"</h2>
+
+{% if results %}
+  <div class="row g-4">
+    {% for stop in results %}
+      <div class="col-md-4">
+        <div class="rounded-box h-100">
+          <h5>{{ stop['CommonName'] }}</h5>
+          <p class="mb-1">{{ stop['Street'] }}<br><small class="text-muted">{{ stop['LocalityName'] }}</small></p>
+          <a href="{{ url_for('stop_detail', code=stop['NaptanCode']) }}" class="btn btn-sm btn-outline-primary">View Details</a>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="alert alert-warning" role="alert">
+    No results found for your search.
+  </div>
+{% endif %}
+{% endblock %}

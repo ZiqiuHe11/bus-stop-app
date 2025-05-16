@@ -1,22 +1,21 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Bus stop list</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <h1>Bus stop list (first 100)</h1>
-    <ul>
-        {% for stop in stops %}
-            <li>
-                <a href="{{ url_for('stop_detail', code=stop['NaptanCode']) }}">
-                    {{ stop['CommonName'] }} (code: {{ stop['NaptanCode'] }})
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
+{% extends "base.html" %}
 
-    <p><a href="{{ url_for('index') }}">Back to Home</a></p>
-</body>
-</html>
+{% block title %}Bus Stop List{% endblock %}
+
+{% block content %}
+<h2 class="mb-4 text-primary">🚏 Bus Stop List (Top 100)</h2>
+
+<div class="row g-4">
+  {% for stop in stops %}
+    <div class="col-md-4">
+      <div class="rounded-box h-100">
+        <h5>{{ stop['CommonName'] }}</h5>
+        <p class="mb-1"><strong>Code:</strong> {{ stop['NaptanCode'] }}</p>
+        <a href="{{ url_for('stop_detail', code=stop['NaptanCode']) }}" class="btn btn-sm btn-outline-primary">View Details</a>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+<p class="mt-4"><a href="{{ url_for('index') }}">⬅ Back to Home</a></p>
+{% endblock %}

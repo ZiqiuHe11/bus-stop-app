@@ -1,22 +1,24 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Bus stop details</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <h1>{{ stop['CommonName'] }}</h1>
+{% extends "base.html" %}
 
-    <ul>
+{% block title %}Bus Stop Details{% endblock %}
+
+{% block content %}
+<div class="row justify-content-start">
+  <div class="col-md-6">
+    <div class="rounded-box">
+      <h3 class="mb-3">{{ stop['CommonName'] }}</h3>
+      <ul class="list-unstyled">
         <li><strong>Street:</strong> {{ stop['Street'] }}</li>
         <li><strong>Location:</strong> {{ stop['LocalityName'] }}</li>
         <li><strong>Type:</strong> {{ stop['BusStopType'] }}</li>
         <li><strong>Coordinates:</strong> X: {{ stop['x'] }}, Y: {{ stop['y'] }}</li>
         <li><strong>Stop Code:</strong> {{ stop['NaptanCode'] }}</li>
-    </ul>
-
-    <p><a href="{{ url_for('stops') }}">Back to list</a></p>
-    <p><a href="{{ url_for('index') }}">Back to Home</a></p>
-</body>
-</html>
+      </ul>
+      <div class="mt-4">
+        <a href="{{ url_for('stops') }}" class="btn btn-outline-secondary me-2">← Back to List</a>
+        <a href="{{ url_for('index') }}" class="btn btn-outline-primary">🏠 Home</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
