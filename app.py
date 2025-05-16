@@ -19,11 +19,22 @@ def index():
 
 @app.route('/stops')
 def stops():
+    page = request.args.get('page', 1, type=int)
+    per_page = 20 
+
+    offset = (page - 1) * per_page
+
     conn = get_db_connection()
-    query = "SELECT * FROM bus_stops LIMIT 100"
-    stops = conn.execute(query).fetchall()
+    total_query = "SELECT COUNT(*) FROM bus_stops"
+    total_count = conn.execute(total_query).fetchone()[0]
+
+    query = "SELECT * FROM bus_stops LIMIT ? OFFSET ?"
+    stops = conn.execute(query, (per_page, offset)).fetchall()
     conn.close()
-    return render_template('stops.html', stops=stops)
+
+    total_pages = (total_count + per_page - 1) // per_page
+
+    return render_template('stops.html', stops=stops, page=page, total_pages=total_pages)
 
 @app.route('/search')
 def search():
