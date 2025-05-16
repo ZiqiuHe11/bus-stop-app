@@ -3,7 +3,7 @@
 {% block title %}Bus Stop List{% endblock %}
 
 {% block content %}
-<h2 class="mb-4 text-primary">🚏 Bus Stop List (Top 100)</h2>
+<h2 class="mb-4 text-primary">🚏 Bus Stop List</h2>
 
 <div class="row g-4">
   {% for stop in stops %}
@@ -16,6 +16,25 @@
     </div>
   {% endfor %}
 </div>
+
+
+<nav aria-label="Page navigation" class="mt-4">
+  <ul class="pagination justify-content-center">
+    <li class="page-item {% if page <= 1 %}disabled{% endif %}">
+      <a class="page-link" href="{{ url_for('stops', page=page-1) }}" tabindex="-1">Previous</a>
+    </li>
+
+    {% for p in range(1, total_pages + 1) %}
+      <li class="page-item {% if p == page %}active{% endif %}">
+        <a class="page-link" href="{{ url_for('stops', page=p) }}">{{ p }}</a>
+      </li>
+    {% endfor %}
+
+    <li class="page-item {% if page >= total_pages %}disabled{% endif %}">
+      <a class="page-link" href="{{ url_for('stops', page=page+1) }}">Next</a>
+    </li>
+  </ul>
+</nav>
 
 <p class="mt-4"><a href="{{ url_for('index') }}">⬅ Back to Home</a></p>
 {% endblock %}
