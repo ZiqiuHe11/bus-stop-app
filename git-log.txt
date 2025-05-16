@@ -1,0 +1,10 @@
+* c3707e8 : Initial commit with complete project including bus_stop_app
+* 06a6e62 : Updated app.py with 0.0.0.0 and port 3000 for Codio deployment
+* 9a82ccf : feat: enhance pagination UI with ellipsis and jump-to-page feature
+* 2f0ce35 : fix: import request for pagination
+* 2f4ce20 : feat: add pagination to stops page
+* 85a1d15 : Update templates and add base.html
+* b9e60dd : debug: print database path for Render
+* 8bc9c69 : fix: correct SQLite path for Render
+* 3b79deb : add gunicorn to requirements
+* 0d151bc : Initial commit: upload Flask project
