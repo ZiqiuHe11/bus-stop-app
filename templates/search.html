@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Search Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Search results: {{ term }}</h1>
+
+    {% if results %}
+        <ul>
+            {% for stop in results %}
+                <li>
+                    <a href="{{ url_for('stop_detail', code=stop['NaptanCode']) }}">
+                        {{ stop['CommonName'] }} - {{ stop['Street'] }} ({{ stop['LocalityName'] }})
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No results were found.</p>
+    {% endif %}
+
+    <p><a href="{{ url_for('index') }}">Back to Home</a></p>
+</body>
+</html>

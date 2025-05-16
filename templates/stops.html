@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Bus stop list</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Bus stop list (first 100)</h1>
+    <ul>
+        {% for stop in stops %}
+            <li>
+                <a href="{{ url_for('stop_detail', code=stop['NaptanCode']) }}">
+                    {{ stop['CommonName'] }} (code: {{ stop['NaptanCode'] }})
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <p><a href="{{ url_for('index') }}">Back to Home</a></p>
+</body>
+</html>

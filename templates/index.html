@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Bus stop query system</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Welcome to the bus stop query system</h1>
+    <p>This website helps you view and search bus stop information in the city.</p>
+
+    <ul>
+        <li><a href="{{ url_for('stops') }}">View all bus stops</a></li>
+        <li>
+            <form action="{{ url_for('search') }}" method="get">
+                <input type="text" name="q" placeholder="Enter a station name, street or area" required>
+                <button type="submit">Search</button>
+            </form>
+        </li>
+    </ul>
+</body>
+</html>

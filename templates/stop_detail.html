@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Bus stop details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>{{ stop['CommonName'] }}</h1>
+
+    <ul>
+        <li><strong>Street:</strong> {{ stop['Street'] }}</li>
+        <li><strong>Location:</strong> {{ stop['LocalityName'] }}</li>
+        <li><strong>Type:</strong> {{ stop['BusStopType'] }}</li>
+        <li><strong>Coordinates:</strong> X: {{ stop['x'] }}, Y: {{ stop['y'] }}</li>
+        <li><strong>Stop Code:</strong> {{ stop['NaptanCode'] }}</li>
+    </ul>
+
+    <p><a href="{{ url_for('stops') }}">Back to list</a></p>
+    <p><a href="{{ url_for('index') }}">Back to Home</a></p>
+</body>
+</html>
