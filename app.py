@@ -1,9 +1,11 @@
 from flask import Flask, render_template, request, abort
 import sqlite3
+import os
 
 app = Flask(__name__)
 
-DATABASE = 'bus_stops.db'
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATABASE = os.path.join(BASE_DIR, 'bus_stops.db')
 
 def get_db_connection():
     conn = sqlite3.connect(DATABASE)
@@ -51,4 +53,3 @@ def page_not_found(e):
 
 if __name__ == '__main__':
     app.run(host="127.0.0.1", port=5000, debug=True)
-
