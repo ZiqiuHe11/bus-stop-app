@@ -17,24 +17,73 @@
   {% endfor %}
 </div>
 
-
 <nav aria-label="Page navigation" class="mt-4">
-  <ul class="pagination justify-content-center">
+  <ul class="pagination justify-content-center align-items-center">
+
     <li class="page-item {% if page <= 1 %}disabled{% endif %}">
       <a class="page-link" href="{{ url_for('stops', page=page-1) }}" tabindex="-1">Previous</a>
     </li>
 
-    {% for p in range(1, total_pages + 1) %}
+
+    <li class="page-item {% if page == 1 %}active{% endif %}">
+      <a class="page-link" href="{{ url_for('stops', page=1) }}">1</a>
+    </li>
+
+    {% set start_page = page - 5 if page - 5 > 2 else 2 %}
+    {% set end_page = page + 5 if page + 5 < total_pages - 1 else total_pages - 1 %}
+
+    {% if start_page > 2 %}
+      <li class="page-item disabled"><span class="page-link">...</span></li>
+    {% endif %}
+
+    {% for p in range(start_page, end_page + 1) %}
       <li class="page-item {% if p == page %}active{% endif %}">
         <a class="page-link" href="{{ url_for('stops', page=p) }}">{{ p }}</a>
       </li>
     {% endfor %}
 
+    {% if end_page < total_pages -1 %}
+      <li class="page-item disabled"><span class="page-link">...</span></li>
+    {% endif %}
+
+    {% if total_pages > 1 %}
+      <li class="page-item {% if page == total_pages %}active{% endif %}">
+        <a class="page-link" href="{{ url_for('stops', page=total_pages) }}">{{ total_pages }}</a>
+      </li>
+    {% endif %}
+
+    
     <li class="page-item {% if page >= total_pages %}disabled{% endif %}">
       <a class="page-link" href="{{ url_for('stops', page=page+1) }}">Next</a>
     </li>
   </ul>
+
+  
+  <form class="d-flex justify-content-center mt-3" onsubmit="event.preventDefault(); jumpToPage();">
+    <input
+      type="number"
+      id="jump-page-input"
+      class="form-control me-2"
+      style="width: 80px;"
+      min="1"
+      max="{{ total_pages }}"
+      placeholder="Page"
+      required
+    />
+    <button type="submit" class="btn btn-primary">Go</button>
+  </form>
 </nav>
+
+<script>
+function jumpToPage() {
+  const input = document.getElementById('jump-page-input');
+  let page = parseInt(input.value);
+  const maxPage = {{ total_pages }};
+  if (isNaN(page) || page < 1) page = 1;
+  if (page > maxPage) page = maxPage;
+  window.location.href = `{{ url_for('stops') }}?page=` + page;
+}
+</script>
 
 <p class="mt-4"><a href="{{ url_for('index') }}">⬅ Back to Home</a></p>
 {% endblock %}
